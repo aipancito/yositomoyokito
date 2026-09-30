@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Para ti</title>
+    
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
+
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      html, body {
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        overflow: hidden;
+        position: fixed;
+        touch-action: none;
+      }
+      
+      body {
+        background-color: #000000; 
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Cronómetro centrado con doble línea */
+      .counter-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(15, 8, 2, 0.85);
+        border: 2px solid rgba(255, 215, 0, 0.8);
+        padding: 15px 25px;
+        border-radius: 20px;
+        z-index: 20;
+        backdrop-filter: blur(6px);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+        text-align: center;
+      }
+
+      .counter-text {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        color: #ffeb3b;
+        letter-spacing: 0.8px;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+        white-space: nowrap;
+      }
+
+      .counter-soon {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        color: #ffffff;
+        letter-spacing: 2px;
+        margin-top: 8px;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+      }
+
+      @media (max-width: 600px) {
+        .counter-container { padding: 12px 18px; }
+        .counter-text { font-size: 11px; }
+        .counter-soon { font-size: 10px; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Cronómetro -->
+    <div class="counter-container">
+      <div class="counter-text" id="timeCounter">Calculando tiempo...</div>
+      <div class="counter-soon">PROXIMAMENTE</div>
+    </div>
+
+    <script>
+      // Lógica del Cronómetro
+      function updateCounter() {
+        const startDate = new Date(2026, 7, 30, 16, 30, 0); // Mes 7 = Agosto
+        const now = new Date();
+        let diff = now - startDate;
+
+        if (diff < 0) diff = 0;
+
+        const seconds = Math.floor(diff / 1000) % 60;
+        const minutes = Math.floor(diff / (1000 * 60)) % 60;
+        const hours = Math.floor(diff / (1000 * 60 * 60)) % 24;
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+        document.getElementById("timeCounter").textContent = 
+          `⏳ Desde el 30 de Ago: ${days}d   ${hours}h   ${minutes}m   ${seconds}s`;
+      }
+      setInterval(updateCounter, 1000);
+      updateCounter();
+    </script>
+  </body>
+</html>
